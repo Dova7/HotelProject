@@ -20,8 +20,8 @@ namespace HotelProject.Tests
         {
             Manager newManager = new Manager()
             {
-                FirstName = "ლუკა",
-                LastName = "ცაგარეიშვილი"
+                FirstName = "Giorgi",
+                LastName = "Gujarelidze"
             };
 
             _managerRepository.AddManager(newManager);
@@ -32,8 +32,8 @@ namespace HotelProject.Tests
             Manager updatedManager = new Manager()
             {
                 Id = 1,
-                FirstName = "ირაკლი",
-                LastName = "ცაგარეიშვილი"
+                FirstName = "Irakli",
+                LastName = "Gujarelidze"
             };
             _managerRepository.UpdateManager(updatedManager);
         }
