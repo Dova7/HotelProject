@@ -26,8 +26,7 @@ namespace HotelProject.Tests
                 Rating = 4.3,
                 Country = "Georgia",
                 City = "Tbilisi",
-                PhysicalAddress = "Rustaveli_Avenue",
-                ManagerId = 1
+                PhysicalAddress = "Rustaveli_Avenue"
             };
 
             _hotelRepository.AddHotel(newHotel);
@@ -49,7 +48,7 @@ namespace HotelProject.Tests
         [Fact]
         public void Delete_Hotel_In_DB()
         {
-            _hotelRepository.DeleteHotel(1);
+            _hotelRepository.DeleteHotel(2);
         }
     }
 }

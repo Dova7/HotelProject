@@ -1,6 +1,7 @@
 ﻿using HotelProject.Data;
 using HotelProject.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace HotelProject.Repository
 {
@@ -9,30 +10,32 @@ namespace HotelProject.Repository
         public List<Hotel> GetHotels()
         {
             List<Hotel> result = new List<Hotel>();
-            const string sqlExpression = "SELECT * FROM Hotels";
+            const string sqlExpression = "GetAllHotels";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
                 connection.Open();
-                using (SqlCommand sqlCommand = new SqlCommand(sqlExpression, connection))
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
-                    if (reader.HasRows)
+                    command.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            Hotel data = new Hotel
+                            while (reader.Read())
                             {
-                                Id = reader.GetInt32(0),
-                                HotelName = !reader.IsDBNull(1) ? reader.GetString(1) : null,
-                                Rating = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0,
-                                Country = !reader.IsDBNull(3) ? reader.GetString(3) : null,
-                                City = !reader.IsDBNull(4) ? reader.GetString(4) : null,
-                                PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,
-                                ManagerId = reader.IsDBNull(6) ? reader.GetInt32(6) : 0,
-                            };
-
-                            result.Add(data);
+                                Hotel data = new Hotel
+                                {
+                                    Id = reader.GetInt32(0),
+                                    HotelName = !reader.IsDBNull(1) ? reader.GetString(1) : null,
+                                    Rating = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0,
+                                    Country = !reader.IsDBNull(3) ? reader.GetString(3) : null,
+                                    City = !reader.IsDBNull(4) ? reader.GetString(4) : null,
+                                    PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,
+                                    ManagerId = !reader.IsDBNull(6) ? reader.GetInt32(6) : null,
+                                };
+                                result.Add(data);
+                            }
                         }
                     }
                 }
@@ -41,13 +44,16 @@ namespace HotelProject.Repository
         }
         public void AddHotel(Hotel hotel)
         {
-            const string sqlExpression = "INSERT INTO DOITHotel_BCTFO.dbo.Hotels(HotelName,Rating,Country,City,PhysicalAddress,ManagerId) VALUES (@HotelName,@Rating,@Country,@City,@PhysicalAddress,@ManagerId)";
+            const string sqlExpression = "AddHotel";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
                 connection.Open();
+
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@HotelName", hotel.HotelName ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Rating", hotel.Rating ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
@@ -61,12 +67,14 @@ namespace HotelProject.Repository
         }
         public void UpdateHotel(Hotel hotel)
         {
-            const string sqlExpression = "UPDATE DOITHotel_BCTFO.dbo.Hotels SET HotelName = @HotelName, Rating = @Rating, Country = @Country, City = @City, PhysicalAddress = @PhysicalAddress, ManagerId = @ManagerId  WHERE Id = @Id";
+            const string sqlExpression = "UpdateHotel";
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@HotelName", hotel.HotelName ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Rating", hotel.Rating ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
@@ -86,13 +94,14 @@ namespace HotelProject.Repository
         }
         public void DeleteHotel(int id)
         {
-            const string sqlExpression = "DELETE FROM DOITHotel_BCTFO.dbo.Hotels WHERE Id = @Id";
+            const string sqlExpression = "DeleteManager";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", id);
 
                     int rowsAffected = command.ExecuteNonQuery();
