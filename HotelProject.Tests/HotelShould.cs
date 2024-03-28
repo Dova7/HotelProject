@@ -1,7 +1,5 @@
 ﻿using HotelProject.Models;
 using HotelProject.Repository;
-using System.Diagnostics.Metrics;
-using System.Net.NetworkInformation;
 
 namespace HotelProject.Tests
 {
@@ -13,12 +11,12 @@ namespace HotelProject.Tests
             _hotelRepository = new();
         }
         [Fact]
-        public void Return_All_Hotels_From_DB()
+        public async Task Return_All_Hotels_From_DB()
         {
-            var result = _hotelRepository.GetHotels();
+            var result = await _hotelRepository.GetHotels();
         }
         [Fact]
-        public void Add_New_Hotel_To_DB()
+        public async Task Add_New_Hotel_To_DB()
         {
             Hotel newHotel = new Hotel()
             {
@@ -29,10 +27,10 @@ namespace HotelProject.Tests
                 PhysicalAddress = "Rustaveli_Avenue"
             };
 
-            _hotelRepository.AddHotel(newHotel);
+            await _hotelRepository.AddHotel(newHotel);
         }
         [Fact]
-        public void Update_Hotel_In_DB()
+        public async Task Update_Hotel_In_DB()
         {
             Hotel updatedHotel = new Hotel()
             {
@@ -43,12 +41,12 @@ namespace HotelProject.Tests
                 City = "Tbilisi",
                 PhysicalAddress = "Rustaveli_Avenue"
             };
-            _hotelRepository.UpdateHotel(updatedHotel);
+            await _hotelRepository.UpdateHotel(updatedHotel);
         }
         [Fact]
-        public void Delete_Hotel_In_DB()
+        public async Task Delete_Hotel_In_DB()
         {
-            _hotelRepository.DeleteHotel(2);
+            await _hotelRepository.DeleteHotel(2);
         }
     }
 }
