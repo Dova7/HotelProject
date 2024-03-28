@@ -11,12 +11,12 @@ namespace HotelProject.Tests
             _managerRepository = new();
         }
         [Fact]
-        public void Return_All_Managers_From_DB()
+        public async Task Return_All_Managers_From_DB()
         {
-            var result = _managerRepository.GetManagers();
+            var result = await _managerRepository.GetManagers();
         }
         [Fact]
-        public void Add_New_Manager_To_DB()
+        public async Task Add_New_Manager_To_DB()
         {
             Manager newManager = new Manager()
             {
@@ -24,10 +24,10 @@ namespace HotelProject.Tests
                 SecondName = "Gujarelidze"
             };
 
-            _managerRepository.AddManager(newManager);
+            await _managerRepository.AddManager(newManager);
         }
         [Fact]
-        public void Update_Manager_In_DB()
+        public async Task Update_Manager_In_DB()
         {
             Manager updatedManager = new Manager()
             {
@@ -35,12 +35,12 @@ namespace HotelProject.Tests
                 FirstName = "Irakli",
                 SecondName = "Gujarelidze"
             };
-            _managerRepository.UpdateManager(updatedManager);
+            await _managerRepository.UpdateManager(updatedManager);
         }
         [Fact]
-        public void Delete_Manager_In_DB()
+        public async Task Delete_Manager_In_DB()
         {
-            _managerRepository.DeleteManager(7);
+            await _managerRepository.DeleteManager(8);
         }
     }
 }
