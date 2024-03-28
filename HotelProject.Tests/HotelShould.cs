@@ -26,7 +26,8 @@ namespace HotelProject.Tests
                 Rating = 4.3,
                 Country = "Georgia",
                 City = "Tbilisi",
-                PhysicalAddress = "Rustaveli_Avenue"
+                PhysicalAddress = "Rustaveli_Avenue",
+                ManagerId = 1
             };
 
             _hotelRepository.AddHotel(newHotel);
@@ -36,7 +37,7 @@ namespace HotelProject.Tests
         {
             Hotel updatedHotel = new Hotel()
             {
-                Id = 1,
+                Id = 2,
                 HotelName = "Marriott",
                 Rating = 4.3,
                 Country = "Georgia",

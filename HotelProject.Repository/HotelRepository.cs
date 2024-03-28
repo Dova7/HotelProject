@@ -28,7 +28,8 @@ namespace HotelProject.Repository
                                 Rating = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0,
                                 Country = !reader.IsDBNull(3) ? reader.GetString(3) : null,
                                 City = !reader.IsDBNull(4) ? reader.GetString(4) : null,
-                                PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null
+                                PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,
+                                ManagerId = reader.IsDBNull(6) ? reader.GetInt32(6) : 0,
                             };
 
                             result.Add(data);
@@ -40,7 +41,7 @@ namespace HotelProject.Repository
         }
         public void AddHotel(Hotel hotel)
         {
-            const string sqlExpression = "INSERT INTO DOITHotel_BCTFO.dbo.Hotels(HotelName,Rating,Country,City,PhysicalAddress) VALUES (@HotelName,@Rating,@Country,@City,@PhysicalAddress)";
+            const string sqlExpression = "INSERT INTO DOITHotel_BCTFO.dbo.Hotels(HotelName,Rating,Country,City,PhysicalAddress,ManagerId) VALUES (@HotelName,@Rating,@Country,@City,@PhysicalAddress,@ManagerId)";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
@@ -52,6 +53,7 @@ namespace HotelProject.Repository
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@City", hotel.City ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ManagerId", hotel.ManagerId ?? (object)DBNull.Value);
 
                     command.ExecuteNonQuery();
                 }
@@ -59,7 +61,7 @@ namespace HotelProject.Repository
         }
         public void UpdateHotel(Hotel hotel)
         {
-            const string sqlExpression = "UPDATE DOITHotel_BCTFO.dbo.Hotels SET HotelName = @HotelName, Rating = @Rating, Country = @Country, City = @City, PhysicalAddress = @PhysicalAddress  WHERE Id = @Id";
+            const string sqlExpression = "UPDATE DOITHotel_BCTFO.dbo.Hotels SET HotelName = @HotelName, Rating = @Rating, Country = @Country, City = @City, PhysicalAddress = @PhysicalAddress, ManagerId = @ManagerId  WHERE Id = @Id";
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
                 connection.Open();
@@ -70,7 +72,9 @@ namespace HotelProject.Repository
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@City", hotel.City ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("ManagerId", hotel.ManagerId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Id", hotel.Id);
+
 
                     int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected == 0)
