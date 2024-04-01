@@ -46,7 +46,7 @@ namespace HotelProject.Tests
         [Fact]
         public async Task Delete_Hotel_In_DB()
         {
-            await _hotelRepository.DeleteHotel(2);
+            await _hotelRepository.DeleteHotel(4);
         }
     }
 }

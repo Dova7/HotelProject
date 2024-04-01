@@ -21,7 +21,8 @@ namespace HotelProject.Tests
             Manager newManager = new Manager()
             {
                 FirstName = "Giorgi",
-                SecondName = "Gujarelidze"
+                SecondName = "Gujarelidze",
+                HotelId = null
             };
 
             await _managerRepository.AddManager(newManager);
@@ -33,14 +34,15 @@ namespace HotelProject.Tests
             {
                 Id = 1,
                 FirstName = "Irakli",
-                SecondName = "Gujarelidze"
+                SecondName = "Gujarelidze",
+                HotelId = null
             };
             await _managerRepository.UpdateManager(updatedManager);
         }
         [Fact]
         public async Task Delete_Manager_In_DB()
         {
-            await _managerRepository.DeleteManager(8);
+            await _managerRepository.DeleteManager(6);
         }
     }
 }

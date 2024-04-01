@@ -28,7 +28,8 @@ namespace HotelProject.Repository
                                 {
                                     Id = reader.GetInt32(0),
                                     FirstName = !reader.IsDBNull(1) ? reader.GetString(1) : null,
-                                    SecondName = !reader.IsDBNull(2) ? reader.GetString(2) : null
+                                    SecondName = !reader.IsDBNull(2) ? reader.GetString(2) : null,
+                                    HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : null
                                 };
                                 result.Add(data);
                             }
@@ -51,6 +52,7 @@ namespace HotelProject.Repository
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@firstName", manager.FirstName ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@secondName", manager.SecondName ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@hotelId", manager.HotelId ?? (object)DBNull.Value);
 
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
@@ -69,6 +71,7 @@ namespace HotelProject.Repository
 
                     command.Parameters.AddWithValue("@firstName", manager.FirstName ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@secondName", manager.SecondName ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@HotelId", manager.HotelId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Id", manager.Id);
 
                     await connection.OpenAsync();

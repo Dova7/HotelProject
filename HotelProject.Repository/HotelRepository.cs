@@ -31,8 +31,7 @@ namespace HotelProject.Repository
                                     Rating = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0,
                                     Country = !reader.IsDBNull(3) ? reader.GetString(3) : null,
                                     City = !reader.IsDBNull(4) ? reader.GetString(4) : null,
-                                    PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,
-                                    ManagerId = !reader.IsDBNull(6) ? reader.GetInt32(6) : null,
+                                    PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,                                    
                                 };
                                 result.Add(data);
                             }
@@ -57,8 +56,7 @@ namespace HotelProject.Repository
                     command.Parameters.AddWithValue("@Rating", hotel.Rating ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@City", hotel.City ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@ManagerId", hotel.ManagerId ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);                    
 
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
@@ -79,8 +77,7 @@ namespace HotelProject.Repository
                     command.Parameters.AddWithValue("@Rating", hotel.Rating ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@City", hotel.City ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("ManagerId", hotel.ManagerId ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);                    
                     command.Parameters.AddWithValue("@Id", hotel.Id);
 
                     await connection.OpenAsync();
