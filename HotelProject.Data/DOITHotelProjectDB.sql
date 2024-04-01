@@ -106,7 +106,7 @@ BEGIN
 	VALUES(@HotelName,@Rating,@Country,@City,@PhysicalAddress)
 END
 
-CREATE PROCEDURE AddRooms
+CREATE PROCEDURE AddRoom
 	@roomName NVARCHAR(50),
 	@isBooked Bit,
 	@hotelId INT,
@@ -149,7 +149,7 @@ UPDATE Hotels
 	WHERE Id = @id
 END
 
-CREATE PROCEDURE UpdateRooms
+CREATE PROCEDURE UpdateRoom
 	@roomName NVARCHAR(50),
 	@isBooked Bit,
 	@hotelId INT,
@@ -181,7 +181,7 @@ BEGIN
 	WHERE Id = @id
 END
 
-CREATE PROCEDURE DeleteRooms
+CREATE PROCEDURE DeleteRoom
 @id INT
 AS
 BEGIN
@@ -192,3 +192,4 @@ END
 GetAllManagers
 GetAllHotels
 GetAllRooms
+
