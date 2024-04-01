@@ -13,7 +13,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "GetAllHotels";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
-            {                
+            {
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -31,7 +31,7 @@ namespace HotelProject.Repository
                                     Rating = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0,
                                     Country = !reader.IsDBNull(3) ? reader.GetString(3) : null,
                                     City = !reader.IsDBNull(4) ? reader.GetString(4) : null,
-                                    PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,                                    
+                                    PhysicalAddress = !reader.IsDBNull(5) ? reader.GetString(5) : null,
                                 };
                                 result.Add(data);
                             }
@@ -46,7 +46,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "AddHotel";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
-            {                
+            {
 
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
@@ -56,7 +56,7 @@ namespace HotelProject.Repository
                     command.Parameters.AddWithValue("@Rating", hotel.Rating ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@City", hotel.City ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);                    
+                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);
 
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
@@ -68,7 +68,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "UpdateHotel";
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
-                
+
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -77,7 +77,7 @@ namespace HotelProject.Repository
                     command.Parameters.AddWithValue("@Rating", hotel.Rating ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Country", hotel.Country ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@City", hotel.City ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);                    
+                    command.Parameters.AddWithValue("@PhysicalAddress", hotel.PhysicalAddress ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Id", hotel.Id);
 
                     await connection.OpenAsync();
@@ -94,7 +94,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "DeleteHotel";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
-            {                
+            {
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
