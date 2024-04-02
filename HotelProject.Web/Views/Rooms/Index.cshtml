@@ -1,0 +1,33 @@
+﻿@model List<Room>
+
+<table class="table table-bordered	table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Availability</th>
+			<th>Hotel ID</th>
+			<th>Price Per Day (GEL)</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model != null)
+		{
+			@foreach (var room in Model)
+			{
+				<tr>
+					<td>@room?.RoomName</td>
+					<td>@room?.IsBooked</td>
+					<td>@room?.HotelId</td>
+					<td>@room?.PriceGel</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="4">No Rooms available.</td>
+			</tr>
+		}
+
+	</tbody>
+</table>

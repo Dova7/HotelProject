@@ -1,0 +1,31 @@
+﻿@model List<Manager>
+
+<table class="table table-bordered	table-striped">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Second Name</th>
+			<th>Hotel ID</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model != null)
+		{
+			@foreach (var manager in Model)
+			{
+				<tr>
+					<td>@manager?.FirstName</td>
+					<td>@manager?.SecondName</td>
+					<td>@manager?.HotelId</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="3">No Managers available.</td>
+			</tr>
+		}
+
+	</tbody>
+</table>

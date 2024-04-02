@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.Models", "HotelProject.Models\HotelProject.Models.csproj", "{2AFECF53-EFCB-4ED6-B9DF-36C74E67B09A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Models", "HotelProject.Models\HotelProject.Models.csproj", "{2AFECF53-EFCB-4ED6-B9DF-36C74E67B09A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.Data", "HotelProject.Data\HotelProject.Data.csproj", "{34D2A857-DAC2-45DA-A109-DAEEAEF9186E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Data", "HotelProject.Data\HotelProject.Data.csproj", "{34D2A857-DAC2-45DA-A109-DAEEAEF9186E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.Repository", "HotelProject.Repository\HotelProject.Repository.csproj", "{986C6A0F-4568-4CDA-BDEB-3B203E18BC63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Repository", "HotelProject.Repository\HotelProject.Repository.csproj", "{986C6A0F-4568-4CDA-BDEB-3B203E18BC63}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34D2A857-DAC2-45DA-A109-DAEEAEF9186E} = {34D2A857-DAC2-45DA-A109-DAEEAEF9186E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.Tests", "HotelProject.Tests\HotelProject.Tests.csproj", "{8278EC82-6F42-4D2D-9683-AA5769503ECD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Tests", "HotelProject.Tests\HotelProject.Tests.csproj", "{8278EC82-6F42-4D2D-9683-AA5769503ECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.Web", "HotelProject.Web\HotelProject.Web.csproj", "{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{8278EC82-6F42-4D2D-9683-AA5769503ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8278EC82-6F42-4D2D-9683-AA5769503ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8278EC82-6F42-4D2D-9683-AA5769503ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
