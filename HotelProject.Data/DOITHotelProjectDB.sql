@@ -189,6 +189,15 @@ BEGIN
 	WHERE Id = @id
 END
 
+CREATE PROCEDURE GetHotelsWithoutManager
+AS
+BEGIN
+	SELECT h.Id, h.HotelName, h.Rating, h.Country, h.City, h.PhysicalAddress
+    FROM Hotels h
+    LEFT JOIN Managers m ON h.Id = m.HotelId
+    WHERE m.HotelId IS NULL
+END
+
 GetAllManagers
 GetAllHotels
 GetAllRooms
