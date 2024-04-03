@@ -1,24 +1,30 @@
 ﻿using HotelProject.Models;
 using HotelProject.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace HotelProject.Web.Controllers
 {
     public class ManagersController : Controller
     {
 		private readonly ManagerRepository _managerRepository;
-		public ManagersController()
+		private readonly HotelRepository _hotelRepository;
+        public ManagersController()
 		{
 			_managerRepository = new ManagerRepository();
-		}
+            _hotelRepository = new HotelRepository();
+        }
 		public async Task<IActionResult> Index()
         {
 			var result = await _managerRepository.GetManagers();
             return View(result);
         }
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-			return View();
+            var hotels = await _hotelRepository.GetHotels();
+            ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");
+            return View();
 		}
 		[HttpPost]
 		public async Task<IActionResult> Create(Manager model)
@@ -36,9 +42,11 @@ namespace HotelProject.Web.Controllers
 			await _managerRepository.DeleteManager(id);
 			return RedirectToAction("Index");
 		}
-		public IActionResult Update()
+		public async Task<IActionResult> Update()
 		{
-			return View();
+            var hotels = await _hotelRepository.GetHotels();
+            ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");
+            return View();
 		}
 		[HttpPost]
 		public async Task<IActionResult> Update(Manager model)

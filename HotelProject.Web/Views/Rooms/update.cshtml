@@ -9,11 +9,14 @@
     </div>
     <div class="mb-3">
         <label asp-for="IsBooked">Availability</label>
-        <input class="form-control" asp-for="IsBooked" required />
+        <select class="form-control" asp-for="IsBooked" required>
+            <option value="true">Not Available</option>
+            <option value="false">Available</option>
+        </select>
     </div>
     <div class="mb-3">
         <label asp-for="HotelId">Hotel ID</label>
-        <input class="form-control" asp-for="HotelId" />
+        <select asp-for="HotelId" asp-items="ViewBag.HotelId" class="form-control"></select>
     </div>
     <div class="mb-3">
         <label asp-for="PriceGel">Price Per Day (GEL)</label>

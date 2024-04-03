@@ -13,8 +13,9 @@
     </div>
     <div class="mb-3">
         <label asp-for="HotelId">Hotel ID</label>
-        <input class="form-control" asp-for="HotelId" />
+        <select asp-for="HotelId" asp-items="ViewBag.HotelId" class="form-control"></select>
     </div>
+
     <div class="mb-3">
         <input type="submit" class="btn btn-success" value="Add" />
     </div>
