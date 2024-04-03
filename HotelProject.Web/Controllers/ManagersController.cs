@@ -1,4 +1,5 @@
-﻿using HotelProject.Repository;
+﻿using HotelProject.Models;
+using HotelProject.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProject.Web.Controllers
@@ -15,5 +16,35 @@ namespace HotelProject.Web.Controllers
 			var result = await _managerRepository.GetManagers();
             return View(result);
         }
-    }
+		public IActionResult Create()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Create(Manager model)
+		{
+			await _managerRepository.AddManager(model);
+			return RedirectToAction("Index");
+		}
+		public IActionResult DeleteConf(int id)
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Delete(int id)
+		{
+			await _managerRepository.DeleteManager(id);
+			return RedirectToAction("Index");
+		}
+		public IActionResult Update()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Update(Manager model)
+		{
+			await _managerRepository.UpdateManager(model);
+			return RedirectToAction("Index");
+		}
+	}
 }
