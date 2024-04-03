@@ -1,0 +1,36 @@
+﻿@model Hotel
+@{
+    ViewData["Title"] = "Update Hotel";
+}
+<form asp-controller="Hotels" asp-action="Update" method="post" >
+    <div class="mb-3">
+        <label asp-for="HotelName">Name</label>
+        <input class="form-control" asp-for="HotelName" required/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rating">Rating</label>
+        <input class="form-control" asp-for="Rating" required/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Country">Country</label>
+        <input class="form-control" asp-for="Country" required/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="City">City</label>
+        <input class="form-control" asp-for="City" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhysicalAddress">Address</label>
+        <input class="form-control" asp-for="PhysicalAddress" required />
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-success" value="Save" />
+    </div>        
+</form>
+<form asp-controller="Hotels" asp-action="Index" method="post">
+    <input hidden asp-for="Id" />
+
+    <div class="mb-3">
+        <input type="submit" class="btn " value="Cancel" />
+    </div>
+</form>

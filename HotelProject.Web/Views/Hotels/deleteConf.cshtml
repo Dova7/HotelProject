@@ -1,0 +1,23 @@
+﻿@model Hotel
+@{
+    ViewData["Title"] = "Delete Hotel";
+}
+<h2>
+    Delete Hotel?
+</h2>
+<div class="d-flex flex-row">    
+<form asp-controller="Hotels" asp-action="Delete" method="post">
+    <input hidden asp-for="Id" />    
+    
+    <div class="mb-3">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+    </div>
+</form>
+<form asp-controller="Hotels" asp-action="Index" method="post">
+    <input hidden asp-for="Id" />
+
+    <div class="mb-3">
+        <input type="submit" class="btn " value="Cancel" />
+    </div>
+</form>
+</div>

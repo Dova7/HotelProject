@@ -16,9 +16,13 @@
 			{
 				<tr>
 					<td>@room?.RoomName</td>
-					<td>@room?.IsBooked</td>
+					<td>@(room?.IsBooked ?? true ? "Not Avaliable" : "Avaliable")</td>
 					<td>@room?.HotelId</td>
 					<td>@room?.PriceGel</td>
+					<td>
+						<a class="btn btn-danger" asp-controller="Rooms" asp-action="DeleteConf" asp-route-id="@room?.Id">Delete</a>
+						<a class="btn btn-info" asp-controller="Rooms" asp-action="Update" asp-route-id="@room?.Id">Update</a>
+					</td>
 				</tr>
 			}
 		}
@@ -31,3 +35,6 @@
 
 	</tbody>
 </table>
+<div class="row">
+	<a class="btn btn-success w-25 btn btn-primary" asp-controller="Rooms" asp-action="Create">Add New Room</a>
+</div>

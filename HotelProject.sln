@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Repository", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Tests", "HotelProject.Tests\HotelProject.Tests.csproj", "{8278EC82-6F42-4D2D-9683-AA5769503ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.Web", "HotelProject.Web\HotelProject.Web.csproj", "{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Web", "HotelProject.Web\HotelProject.Web.csproj", "{16DF2BA4-CDBF-4BF4-9C40-8D6AAAE17530}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

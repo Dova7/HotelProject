@@ -20,6 +20,10 @@
 					<td>@hotel?.Country</td>
 					<td>@hotel?.City</td>
 					<td>@hotel?.PhysicalAddress</td>
+					<td>
+						<a class="btn btn-danger" asp-controller="Hotels" asp-action="DeleteConf" asp-route-id="@hotel?.Id">Delete</a>
+						<a class="btn btn-info" asp-controller="Hotels" asp-action="Update" asp-route-id="@hotel?.Id">Update</a>
+					</td>
 				</tr>
 			}
 		}
@@ -29,6 +33,8 @@
 				<td colspan="5">No hotels available.</td>
 			</tr>
 		}
-
 	</tbody>
 </table>
+<div class="row">
+	<a class="btn btn-success w-25 btn btn-primary" asp-controller="Hotels" asp-action="Create">Add New Hotel</a>
+</div>

@@ -17,6 +17,10 @@
 					<td>@manager?.FirstName</td>
 					<td>@manager?.SecondName</td>
 					<td>@manager?.HotelId</td>
+					<td>
+						<a class="btn btn-danger" asp-controller="Managers" asp-action="DeleteConf" asp-route-id="@manager?.Id">Delete</a>
+						<a class="btn btn-info" asp-controller="Managers" asp-action="Update" asp-route-id="@manager?.Id">Update</a>
+					</td>
 				</tr>
 			}
 		}
@@ -29,3 +33,6 @@
 
 	</tbody>
 </table>
+<div class="row">
+	<a class="btn btn-success w-25 btn btn-primary" asp-controller="Managers" asp-action="Create">Add New Manager</a>
+</div>

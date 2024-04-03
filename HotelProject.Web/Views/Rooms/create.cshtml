@@ -1,0 +1,32 @@
+﻿@model Room
+@{
+    ViewData["Title"] = "Add New Room";
+}
+<form asp-controller="Rooms" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="RoomName">Name</label>
+        <input class="form-control" asp-for="RoomName" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsBooked">Availability</label>
+        <input class="form-control" asp-for="IsBooked" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HotelId">Hotel ID</label>
+        <input class="form-control" asp-for="HotelId" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="PriceGel">Price Per Day (GEL)</label>
+        <input class="form-control" asp-for="PriceGel" />
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-success" value="Add" />
+    </div>
+</form>
+<form asp-controller="Rooms" asp-action="Index" method="post">
+    <input hidden asp-for="Id" />
+
+    <div class="mb-3">
+        <input type="submit" class="btn " value="Cancel" />
+    </div>
+</form>

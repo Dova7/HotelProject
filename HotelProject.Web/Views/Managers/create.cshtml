@@ -1,0 +1,28 @@
+﻿@model Manager
+@{
+    ViewData["Title"] = "Add New Manager";
+}
+<form asp-controller="Managers" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="FirstName">First Name</label>
+        <input class="form-control" asp-for="FirstName" required/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SecondName">Second Name</label>
+        <input class="form-control" asp-for="SecondName" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="HotelId">Hotel ID</label>
+        <input class="form-control" asp-for="HotelId" />
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-success" value="Add" />
+    </div>
+</form>
+<form asp-controller="Managers" asp-action="Index" method="post">
+    <input hidden asp-for="Id" />
+
+    <div class="mb-3">
+        <input type="submit" class="btn " value="Cancel" />
+    </div>
+</form>
