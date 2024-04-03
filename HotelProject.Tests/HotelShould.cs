@@ -16,6 +16,11 @@ namespace HotelProject.Tests
             var result = await _hotelRepository.GetHotels();
         }
         [Fact]
+        public async Task Return_All_Hotels_Without_Manager_From_DB()
+        {
+            var result = await _hotelRepository.GetHotelsWithoutManager();
+        }
+        [Fact]
         public async Task Add_New_Hotel_To_DB()
         {
             Hotel newHotel = new Hotel()

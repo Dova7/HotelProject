@@ -22,7 +22,7 @@ namespace HotelProject.Web.Controllers
         }
 		public async Task<IActionResult> Create()
 		{
-            var hotels = await _hotelRepository.GetHotels();
+            var hotels = await _hotelRepository.GetHotelsWithoutManager();
             ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");
             return View();
 		}
@@ -44,8 +44,8 @@ namespace HotelProject.Web.Controllers
 		}
 		public async Task<IActionResult> Update()
 		{
-            var hotels = await _hotelRepository.GetHotels();
-            ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");
+			var hotels = await _hotelRepository.GetHotelsWithoutManager();
+            ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");			
             return View();
 		}
 		[HttpPost]
