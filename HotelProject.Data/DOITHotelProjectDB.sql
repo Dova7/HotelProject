@@ -198,6 +198,34 @@ BEGIN
     WHERE m.HotelId IS NULL
 END
 
+CREATE PROCEDURE GetHotelByID
+@id INT
+AS
+BEGIN
+	SELECT
+		[Id],
+		[HotelName],
+		Rating,
+		Country,
+		City,
+		PhysicalAddress
+FROM [DOITHotel_BCTFO].[dbo].[Hotels]
+WHERE Id = @id
+END
+
+CREATE PROCEDURE GetManagerByID
+@id INT
+AS
+BEGIN
+	SELECT
+		[Id],
+		[FirstName],
+		[SecondName],
+		[HotelId]
+FROM [DOITHotel_BCTFO].[dbo].[Managers]
+WHERE Id = @id
+END
+
 GetAllManagers
 GetAllHotels
 GetAllRooms
