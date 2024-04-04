@@ -42,9 +42,15 @@ namespace HotelProject.Web.Controllers
 			await _managerRepository.DeleteManager(id);
 			return RedirectToAction("Index");
 		}
-		public async Task<IActionResult> Update()
+		public async Task<IActionResult> Update(int id)
 		{
 			var hotels = await _hotelRepository.GetHotelsWithoutManager();
+			var manager = await _managerRepository.GetManagerById(id);
+			if (manager.HotelId.HasValue)
+			{
+				var currentHotel = await _hotelRepository.GetHotelById(manager.HotelId.Value);
+                hotels.Add(currentHotel);
+            }
             ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");			
             return View();
 		}
