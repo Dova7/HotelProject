@@ -53,5 +53,10 @@ namespace HotelProject.Tests
         {
             await _hotelRepository.DeleteHotel(4);
         }
+        [Fact]
+        public async Task Get_Single_Hotel_By_Id()
+        {
+            await _hotelRepository.GetHotelById(2);
+        }
     }
 }

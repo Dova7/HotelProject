@@ -104,6 +104,38 @@ namespace HotelProject.Repository
                 }
             }
         }
+        public async Task<Manager> GetManagerById(int id)
+        {
+            Manager result = new Manager();
+            const string sqlExpression = "GetManagerByID";
 
+            using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(sqlExpression, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"@id", id);
+                    await connection.OpenAsync();
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                Manager data = new Manager
+                                {
+                                    Id = reader.GetInt32(0),
+                                    FirstName = !reader.IsDBNull(1) ? reader.GetString(1) : null,
+                                    SecondName = !reader.IsDBNull(2) ? reader.GetString(2) : null,
+                                    HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : null
+                                };
+                                result = data;
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
