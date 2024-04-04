@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +8,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HotelProject.Web.styles.css" asp-append-version="true" />
+    <style>
+        .nav-item-text {
+            font-size: 1.5rem;
+        }
+        .nav-item {
+            margin-left: 2rem; 
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -21,13 +30,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Hotels" asp-action="Index">Hotels</a>
+                            <a class="nav-link text-dark nav-item-text" asp-controller="Hotels" asp-action="Index">Hotels</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Managers" asp-action="Index">Managers</a>
+                            <a class="nav-link text-dark nav-item-text" asp-controller="Managers" asp-action="Index">Managers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Rooms" asp-action="Index">Rooms</a>
+                            <a class="nav-link text-dark nav-item-text" asp-controller="Rooms" asp-action="Index">Rooms</a>
                         </li>
                     </ul>
                 </div>
