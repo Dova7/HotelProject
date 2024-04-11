@@ -4,7 +4,7 @@ using HotelProject.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace HotelProject.Repository
+namespace HotelProject.Repository.MVCRepos
 {
     public class HotelRepository : IHotelRepository
     {

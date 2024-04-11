@@ -1,4 +1,4 @@
-using HotelProject.Repository;
+using HotelProject.Repository.MVCRepos;
 
 namespace HotelProject.Web
 {

@@ -4,7 +4,7 @@ using HotelProject.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace HotelProject.Repository
+namespace HotelProject.Repository.MVCRepos
 {
     public class RoomRepository : IRoomRepository
     {
@@ -31,7 +31,7 @@ namespace HotelProject.Repository
                                     RoomName = !reader.IsDBNull(1) ? reader.GetString(1) : null,
                                     IsBooked = !reader.IsDBNull(2) ? reader.GetBoolean(2) : null,
                                     HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : null,
-                                    PriceGel = !reader.IsDBNull(4) ? reader.GetDouble(4) : null,                                    
+                                    PriceGel = !reader.IsDBNull(4) ? reader.GetDouble(4) : null,
                                 };
                                 result.Add(data);
                             }
@@ -66,7 +66,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "UpdateRoom";
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
-                
+
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -82,7 +82,7 @@ namespace HotelProject.Repository
                     if (rowsAffected == 0)
                     {
                         throw new InvalidOperationException("No room found with the specified ID.");
-                    }                    
+                    }
                 }
             }
         }

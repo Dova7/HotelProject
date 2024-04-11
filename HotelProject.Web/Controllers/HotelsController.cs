@@ -1,10 +1,10 @@
 ﻿using HotelProject.Models;
-using HotelProject.Repository;
+using HotelProject.Repository.MVCRepos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProject.Web.Controllers
 {
-	public class HotelsController : Controller
+    public class HotelsController : Controller
 	{
 		private readonly HotelRepository _hotelRepository;
 		public HotelsController()

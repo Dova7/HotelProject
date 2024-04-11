@@ -4,7 +4,7 @@ using HotelProject.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace HotelProject.Repository
+namespace HotelProject.Repository.MVCRepos
 {
     public class ManagerRepository : IManagerRepository
     {
@@ -14,7 +14,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "GetAllManagers";
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
-            {                
+            {
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -36,7 +36,7 @@ namespace HotelProject.Repository
                             }
                         }
                     }
-                }                                    
+                }
             }
             return result;
         }
@@ -47,7 +47,7 @@ namespace HotelProject.Repository
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
-                
+
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -65,7 +65,7 @@ namespace HotelProject.Repository
             const string sqlExpression = "UpdateManager";
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
-                
+
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -80,7 +80,7 @@ namespace HotelProject.Repository
                     if (rowsAffected == 0)
                     {
                         throw new InvalidOperationException("No manager found with the specified ID.");
-                    }                    
+                    }
                 }
             }
         }
@@ -90,10 +90,10 @@ namespace HotelProject.Repository
 
             using (SqlConnection connection = new SqlConnection(ApplicationDBContext.ConnectionString))
             {
-                
+
                 using (SqlCommand command = new SqlCommand(sqlExpression, connection))
                 {
-                    command.CommandType= CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", id);
 
                     await connection.OpenAsync();
