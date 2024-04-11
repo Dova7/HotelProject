@@ -1,4 +1,5 @@
 ﻿using HotelProject.Models;
+using HotelProject.Repository.Interfaces;
 using HotelProject.Repository.MVCRepos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +7,10 @@ namespace HotelProject.Web.Controllers
 {
     public class HotelsController : Controller
 	{
-		private readonly HotelRepository _hotelRepository;
-		public HotelsController()
+		private readonly IHotelRepository _hotelRepository;
+		public HotelsController(IHotelRepository hotelRepository)
 		{
-			_hotelRepository = new HotelRepository();
+			_hotelRepository = hotelRepository;
 		}
 
 		public async Task<IActionResult> Index()

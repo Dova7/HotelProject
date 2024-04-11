@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelProject.Data
 {
@@ -8,6 +9,8 @@ namespace HotelProject.Data
         {
 
         }
-        public static string ConnectionString { get; } = "Server=DESKTOP-5G4KLMO\\SQLEXPRESS;Database=DOITHotel_BCTFO;Trusted_Connection=True;TrustServerCertificate=true";
+        public DbSet<Hotel> Hotels { get; set; }
+        //public static string ConnectionString { get; } = "Server=DESKTOP-5G4KLMO\\SQLEXPRESS;Database=DOITHotel_BCTFO;Trusted_Connection=True;TrustServerCertificate=true";
+        public static string ConnectionString { get; } = "Server=DESKTOP-5G4KLMO\\SQLEXPRESS;Database=DOITHotel_BCTFO2;Trusted_Connection=True;TrustServerCertificate=true";
     }
 }
