@@ -1,11 +1,12 @@
 ﻿using HotelProject.Data;
 using HotelProject.Models;
+using HotelProject.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace HotelProject.Repository
 {
-    public class RoomRepository
+    public class RoomRepository : IRoomRepository
     {
         public async Task<List<Room>> GetRooms()
         {
