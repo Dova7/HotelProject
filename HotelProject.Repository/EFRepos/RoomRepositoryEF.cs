@@ -42,7 +42,7 @@ namespace HotelProject.Repository.EFRepos
         }
         public async Task<List<Room>> GetRooms()
         {
-            var entities = await _context.Rooms.ToListAsync();
+            var entities = await _context.Rooms.Include(nameof(Hotel)).ToListAsync();
 
             if (entities == null)
             {

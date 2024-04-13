@@ -56,7 +56,7 @@ namespace HotelProject.Repository.EFRepos
 
         public async Task<List<Manager>> GetManagers()
         {
-            var entities = await _context.Managers.ToListAsync();
+            var entities = await _context.Managers.Include(nameof(Hotel)).ToListAsync();
 
             if (entities == null)
             {

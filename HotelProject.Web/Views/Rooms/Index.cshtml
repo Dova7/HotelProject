@@ -17,7 +17,7 @@
 				<tr>
 					<td>@room?.RoomName</td>
 					<td>@(room?.IsBooked ?? true ? "Not Avaliable" : "Avaliable")</td>
-					<td>@room?.HotelId</td>
+					<td>@room?.Hotel.HotelName</td>
 					<td>@room?.PriceGel</td>
 					<td>
 						<a class="btn btn-danger" asp-controller="Rooms" asp-action="DeleteConf" asp-route-id="@room?.Id">Delete</a>

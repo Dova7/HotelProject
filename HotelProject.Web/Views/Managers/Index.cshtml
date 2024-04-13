@@ -16,7 +16,7 @@
 				<tr>
 					<td>@manager?.FirstName</td>
 					<td>@manager?.SecondName</td>
-					<td>@manager?.HotelId</td>
+					<td>@manager?.Hotel.HotelName</td>
 					<td>
 						<a class="btn btn-danger" asp-controller="Managers" asp-action="DeleteConf" asp-route-id="@manager?.Id">Delete</a>
 						<a class="btn btn-info" asp-controller="Managers" asp-action="Update" asp-route-id="@manager?.Id">Update</a>
