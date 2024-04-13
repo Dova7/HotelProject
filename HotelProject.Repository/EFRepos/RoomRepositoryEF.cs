@@ -1,28 +1,79 @@
-﻿using HotelProject.Models;
+﻿using HotelProject.Data;
+using HotelProject.Models;
 using HotelProject.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelProject.Repository.EFRepos
 {
     public class RoomRepositoryEF : IRoomRepository
     {
-        public Task AddRoom(Room room)
+        private readonly ApplicationDBContext _context;
+        public RoomRepositoryEF(ApplicationDBContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task AddRoom(Room room)
+        {
+            if (room == null)
+            {
+                throw new ArgumentNullException("Invalid argument passed");
+            }
+
+            await _context.Rooms.AddAsync(room);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteRoom(int id)
+        public async Task DeleteRoom(int id)
         {
-            throw new NotImplementedException();
-        }
+            if (id <= 0)
+            {
+                throw new ArgumentNullException("Invalid argument passed");
+            }
 
-        public Task<List<Room>> GetRooms()
-        {
-            throw new NotImplementedException();
-        }
+            var entity = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == id);
 
-        public Task UpdateRoom(Room room)
-        {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entity not found");
+            }
+
+            _context.Rooms.Remove(entity);
+            await _context.SaveChangesAsync();
         }
-    }
+        public async Task<List<Room>> GetRooms()
+        {
+            var entities = await _context.Rooms.ToListAsync();
+
+            if (entities == null)
+            {
+                throw new NullReferenceException("Entities not found");
+            }
+
+            return entities;
+
+        }
+        public async Task UpdateRoom(Room room)
+        {
+            if (room == null || room.Id <= 0)
+            {
+                throw new ArgumentNullException("Invalid argument passed");
+            }
+
+            var entity = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == room.Id);
+
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entity not found");
+            }
+
+            entity.RoomName = room.RoomName;
+            entity.IsBooked = room.IsBooked;
+            entity.HotelId = room.HotelId;
+            entity.PriceGel = room.PriceGel;
+
+            _context.Rooms.Update(entity);
+            await _context.SaveChangesAsync();
+
+        }
+    }    
 }

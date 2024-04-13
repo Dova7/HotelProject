@@ -7,5 +7,6 @@
         public bool? IsBooked { get; set; }
         public int? HotelId { get; set; }
         public double? PriceGel { get; set; }
+        public Hotel Hotel { get; set; }
     }
 }

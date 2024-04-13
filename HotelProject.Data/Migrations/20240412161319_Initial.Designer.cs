@@ -4,6 +4,7 @@ using HotelProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240412161319_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,15 +99,12 @@ namespace HotelProject.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("HotelId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecondName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -114,103 +114,6 @@ namespace HotelProject.Data.Migrations
                         .HasFilter("[HotelId] IS NOT NULL");
 
                     b.ToTable("Managers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "Giorgi",
-                            HotelId = 1,
-                            SecondName = "Gujarelidze"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Saba",
-                            HotelId = 2,
-                            SecondName = "Gujarelidze"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FirstName = "Irakli",
-                            HotelId = 3,
-                            SecondName = "Gujarelidze"
-                        });
-                });
-
-            modelBuilder.Entity("HotelProject.Models.Room", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("HotelId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsBooked")
-                        .IsRequired()
-                        .HasColumnType("bit");
-
-                    b.Property<double?>("PriceGel")
-                        .IsRequired()
-                        .HasColumnType("float");
-
-                    b.Property<string>("RoomName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HotelId");
-
-                    b.ToTable("Rooms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            HotelId = 1,
-                            IsBooked = true,
-                            PriceGel = 125.0,
-                            RoomName = "Room 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            HotelId = 1,
-                            IsBooked = false,
-                            PriceGel = 79.989999999999995,
-                            RoomName = "Room 2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            HotelId = 2,
-                            IsBooked = true,
-                            PriceGel = 119.98999999999999,
-                            RoomName = "Room 1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            HotelId = 2,
-                            IsBooked = true,
-                            PriceGel = 150.0,
-                            RoomName = "Room 2"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            HotelId = 3,
-                            IsBooked = false,
-                            PriceGel = 122.0,
-                            RoomName = "Room 1"
-                        });
                 });
 
             modelBuilder.Entity("HotelProject.Models.Manager", b =>
@@ -222,22 +125,9 @@ namespace HotelProject.Data.Migrations
                     b.Navigation("Hotel");
                 });
 
-            modelBuilder.Entity("HotelProject.Models.Room", b =>
-                {
-                    b.HasOne("HotelProject.Models.Hotel", "Hotel")
-                        .WithMany("Rooms")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hotel");
-                });
-
             modelBuilder.Entity("HotelProject.Models.Hotel", b =>
                 {
                     b.Navigation("Manager");
-
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }
