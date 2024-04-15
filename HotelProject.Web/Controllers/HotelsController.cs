@@ -12,7 +12,6 @@ namespace HotelProject.Web.Controllers
 		{
 			_hotelRepository = hotelRepository;
 		}
-
 		public async Task<IActionResult> Index()
 		{
 			var result = await _hotelRepository.GetHotels();
