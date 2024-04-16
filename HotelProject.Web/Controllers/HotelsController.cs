@@ -37,9 +37,10 @@ namespace HotelProject.Web.Controllers
 			await _hotelRepository.DeleteHotel(id);
 			return RedirectToAction("Index");
 		}
-        public IActionResult Update()
+        public async Task<IActionResult> Update(int id)
         {
-            return View();
+            var hotel = await _hotelRepository.GetHotelById(id);
+            return View(hotel);
         }
         [HttpPost]
 		public async Task<IActionResult> Update(Hotel model)

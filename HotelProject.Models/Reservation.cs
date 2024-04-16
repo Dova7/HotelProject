@@ -15,6 +15,6 @@ namespace HotelProject.Models
         [Required]
         public DateTime CheckOutDate { get; set; }
 
-        public ICollection<GuestReservation> GuestReservations { get; set; }
+        public ICollection<GuestReservation> GuestReservations { get; set; } = null!;
     }
 }

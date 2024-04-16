@@ -1,0 +1,32 @@
+﻿@model Guest
+@{
+    ViewData["Title"] = "Update Guest";
+}
+<form asp-controller="Guests" asp-action="Update" method="post">
+    <div class="mb-3">
+        <label asp-for="FirstName">First Name</label>
+        <input class="form-control" asp-for="FirstName" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName">Last Name</label>
+        <input class="form-control" asp-for="LastName" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="PersonalNumber">Personal Number</label>
+        <input class="form-control" asp-for="PersonalNumber" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumber">PhoneNumber</label>
+        <input class="form-control" asp-for="PhoneNumber" required />
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-success" value="Save" />
+    </div>
+</form>
+<form asp-controller="Guests" asp-action="Index" method="post">
+    <input hidden asp-for="Id" />
+
+    <div class="mb-3">
+        <input type="submit" class="btn " value="Cancel" />
+    </div>
+</form>

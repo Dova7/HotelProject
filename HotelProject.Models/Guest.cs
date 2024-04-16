@@ -11,21 +11,21 @@ namespace HotelProject.Models
 
         [Required]
         [MaxLength(50)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = null!;
 
         [Required]
         [MaxLength(50)]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = null!;
 
         [Required]
         [StringLength(11)]
-        public string PersonalNumber { get; set; }
+        public string PersonalNumber { get; set; } = null!;
 
         [Required]
         [MaxLength(25)]
         [Phone]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = null!;
 
-        public ICollection<GuestReservation> GuestReservations { get; set; }
+        public ICollection<GuestReservation> GuestReservations { get; set; } = null!;
     }
 }

@@ -53,7 +53,7 @@ namespace HotelProject.Web.Controllers
                 hotels.Add(currentHotel);
             }
             ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");			
-            return View();
+            return View(manager);
 		}
 		[HttpPost]
 		public async Task<IActionResult> Update(Manager model)
