@@ -42,6 +42,18 @@ namespace HotelProject.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Guest> GetByPin(string personalNumber)
+        {
+            var entity = await _context.Guests.FirstOrDefaultAsync(x => x.PersonalNumber.ToLower().Trim() == personalNumber.ToLower().Trim());
+
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entity not found");
+            }
+
+            return entity;
+        }
+
         public async Task<List<Guest>> GetGuests()
         {
             var entities = await _context.Guests.ToListAsync();

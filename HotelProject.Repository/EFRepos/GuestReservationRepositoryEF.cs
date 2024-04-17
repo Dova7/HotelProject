@@ -49,7 +49,7 @@ namespace HotelProject.Repository
 
         public async Task<List<GuestReservation>> GetGuestReservations()
         {
-            var entities = await _context.GuestReservations.ToListAsync();
+            var entities = await _context.GuestReservations.Include(nameof(Reservation)).Include(nameof(Guest)).ToListAsync();
 
             if (entities == null)
             {
@@ -61,7 +61,7 @@ namespace HotelProject.Repository
 
         public async Task<GuestReservation> GetSingleGuestReservation(int id)
         {
-            var entity = await _context.GuestReservations.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await _context.GuestReservations.Include(nameof(Reservation)).Include(nameof(Guest)).FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
             {

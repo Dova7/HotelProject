@@ -42,6 +42,18 @@ namespace HotelProject.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Reservation> GetByCheckInCheckOutDate(DateTime checkIn, DateTime checkOut)
+        {
+            var entity = await _context.Reservations.FirstOrDefaultAsync(x => x.CheckInDate == checkIn && x.CheckOutDate == checkOut);
+
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entities not found");
+            }
+
+            return entity;
+        }
+
         public async Task<List<Reservation>> GetReservations()
         {
             var entities = await _context.Reservations.ToListAsync();

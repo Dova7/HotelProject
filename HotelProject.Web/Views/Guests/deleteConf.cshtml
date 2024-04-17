@@ -1,10 +1,13 @@
-﻿@model Guest
+﻿@model GuestReservation
 @{
     ViewData["Title"] = "Delete Guest";
 }
 <h2>
-    Delete Guest?
+    Delete Reservation?
 </h2>
+<input hidden asp-for="Id" />
+<input hidden asp-for="GuestId" />
+<input hidden asp-for="ReservationId" />
 <div class="d-flex flex-row">
     <form asp-controller="Guests" asp-action="Delete" method="post">
         <input hidden asp-for="Id" />

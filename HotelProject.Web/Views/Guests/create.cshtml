@@ -1,32 +1,37 @@
-﻿@model Guest
+﻿@model GuestReservationCreateDTO
 @{
     ViewData["Title"] = "Add New Guest";
 }
 <form asp-controller="Guests" asp-action="Create" method="post">
     <div class="mb-3">
         <label asp-for="FirstName">First Name</label>
-        <input class="form-control" asp-for="FirstName" required />
+        <input class="form-control" asp-for="FirstName" />
     </div>
     <div class="mb-3">
         <label asp-for="LastName">Last Name</label>
-        <input class="form-control" asp-for="LastName" required />
+        <input class="form-control" asp-for="LastName" />
     </div>
     <div class="mb-3">
         <label asp-for="PersonalNumber">Personal Number</label>
-        <input class="form-control" asp-for="PersonalNumber" required />
+        <input class="form-control" asp-for="PersonalNumber" />
     </div>
     <div class="mb-3">
         <label asp-for="PhoneNumber">Phone Number</label>
-        <input class="form-control" asp-for="PhoneNumber" required />
+        <input class="form-control" asp-for="PhoneNumber" />
+    </div>
+    <div class="mb-3">
+        <div class="row">
+            <div class="col">
+                <label asp-for="CheckInDate">Check In Date</label>
+                <input class="form-control" asp-for="CheckInDate" />
+            </div>
+            <div class="col">
+                <label asp-for="CheckOutDate">Check Out Date</label>
+                <input class="form-control" asp-for="CheckOutDate" />
+            </div>
+        </div>
     </div>
     <div class="mb-3">
         <input type="submit" class="btn btn-success" value="Add" />
-    </div>
-</form>
-<form asp-controller="Guests" asp-action="Index" method="post">
-    <input hidden asp-for="Id" />
-
-    <div class="mb-3">
-        <input type="submit" class="btn " value="Cancel" />
     </div>
 </form>

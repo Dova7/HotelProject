@@ -1,25 +1,27 @@
-﻿@model List<Guest>
+﻿@model List<GuestReservationDTO>
 
 <table class="table table-bordered	table-striped">
 	<thead>
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
+			<th>Name</th>
+			<th>Personal Number</th>
+			<th>Phone Number</th>
+			<th>Reservation Date</th>
 		</tr>
 	</thead>
 	<tbody>
 		@if (Model != null)
 		{
-			@foreach (var Guest in Model)
+			@foreach (var gr in Model)
 			{
 				<tr>
-					<td>@Guest?.FirstName</td>
-					<td>@Guest?.LastName</td>
-					<td>@Guest?.PersonalNumber</td>
-					<td>@Guest?.PhoneNumber</td>
+					<td>@gr?.FirstName @gr?.LastName</td>
+					<td>@gr?.PersonalNumber</td>
+					<td>@gr?.PhoneNumber</td>
+					<td>@gr?.CheckInDate-@gr?.CheckOutDate</td>					
 					<td>
-						<a class="btn btn-danger" asp-controller="Guests" asp-action="DeleteConf" asp-route-id="@Guest?.Id">Delete</a>
-						<a class="btn btn-info" asp-controller="Guests" asp-action="Update" asp-route-id="@Guest?.Id">Update</a>
+						<a class="btn btn-danger" asp-controller="Guests" asp-action="DeleteConf" asp-route-id="@gr?.Id">Delete</a>
+						<a class="btn btn-info" asp-controller="Guests" asp-action="Update" asp-route-id="@gr?.Id">Update</a>
 					</td>
 				</tr>
 			}

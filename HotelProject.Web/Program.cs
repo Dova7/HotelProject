@@ -16,6 +16,7 @@ namespace HotelProject.Web
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDBContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerLocalConnection")));
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddScoped<IHotelRepository, HotelRepositoryEF>();
             builder.Services.AddScoped<IManagerRepository, ManagerRepositoryEF>();
