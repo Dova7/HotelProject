@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelProject.Data.Migrations;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
 using HotelProject.Repository.Interfaces;
@@ -65,8 +66,8 @@ namespace HotelProject.Web.Controllers
         public async Task<IActionResult> Delete(int id, int guestId, int reservationId)
         {
             await _guestReservationRepository.DeleteGuestReservation(id);
-            await _guestRepository.DeleteGuest(guestId);
-            await _reservationRepository.DeleteReservation(reservationId);
+            //await _guestRepository.DeleteGuest(guestId);
+            //await _reservationRepository.DeleteReservation(reservationId);
 
             return RedirectToAction("Index");
         }
@@ -74,15 +75,28 @@ namespace HotelProject.Web.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            var result = await _guestRepository.GetSingleGuest(id);
+            var raw = await _guestReservationRepository.GetSingleGuestReservation(id);
+            var result = _mapper.Map<GuestReservationUpdateDTO>(raw);
+
             return View(result);
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> Update(Guest model)
+        public async Task<IActionResult> Update(GuestReservationUpdateDTO model)
         {
-            await _guestRepository.UpdateGuest(model);
+            Guest updatedGuest = _mapper.Map<Guest>(model);
+            Reservation updatedReservation = _mapper.Map<Reservation>(model);
+
+            await _guestRepository.UpdateGuest(updatedGuest);
+            await _reservationRepository.UpdateReservation(updatedReservation);
+
+            var updatedGuestFromDB = await _guestRepository.GetByPin(model.PersonalNumber);
+            var updatedReservationFromDB = await _reservationRepository.GetByCheckInCheckOutDate(model.CheckInDate, model.CheckOutDate);
+
+            model.GuestId = updatedGuestFromDB.Id;
+            model.ReservationId = updatedReservationFromDB.Id;
+
+            await _guestReservationRepository.UpdateGuestReservation(_mapper.Map<GuestReservation>(model));
             return RedirectToAction("Index");
         }
     }

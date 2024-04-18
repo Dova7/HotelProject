@@ -1,6 +1,6 @@
 ﻿@model GuestReservationCreateDTO
 @{
-    ViewData["Title"] = "Add New Guest";
+    ViewData["Title"] = "Add New Reservation";
 }
 <form asp-controller="Guests" asp-action="Create" method="post">
     <div class="mb-3">
@@ -33,5 +33,10 @@
     </div>
     <div class="mb-3">
         <input type="submit" class="btn btn-success" value="Add" />
+    </div>    
+</form>
+<form asp-controller="Guests" asp-action="Index" method="post">
+    <div class="mb-3">
+        <input type="submit" class="btn " value="Cancel" />
     </div>
 </form>

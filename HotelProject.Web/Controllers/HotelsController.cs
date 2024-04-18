@@ -45,6 +45,7 @@ namespace HotelProject.Web.Controllers
         [HttpPost]
 		public async Task<IActionResult> Update(Hotel model)
 		{
+
 			await _hotelRepository.UpdateHotel(model);
 			return RedirectToAction("Index");
 		}
