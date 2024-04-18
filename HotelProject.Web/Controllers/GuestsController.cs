@@ -66,8 +66,8 @@ namespace HotelProject.Web.Controllers
         public async Task<IActionResult> Delete(int id, int guestId, int reservationId)
         {
             await _guestReservationRepository.DeleteGuestReservation(id);
-            //await _guestRepository.DeleteGuest(guestId);
-            //await _reservationRepository.DeleteReservation(reservationId);
+            await _guestRepository.DeleteGuest(guestId);
+            await _reservationRepository.DeleteReservation(reservationId);
 
             return RedirectToAction("Index");
         }

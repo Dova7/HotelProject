@@ -67,7 +67,6 @@ namespace HotelProject.Repository
             {
                 throw new NullReferenceException("Entity not found");
             }
-
             return entity;
         }
 
