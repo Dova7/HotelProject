@@ -2,12 +2,8 @@
 
 namespace HotelProject.Repository.Interfaces
 {
-    public interface IRoomRepository
+    public interface IRoomRepository : IBaseRepository<Room>, IFullyUpdatable<Room>
     {
-        public Task<List<Room>> GetRooms();
-        public Task AddRoom(Room room);
-        public Task UpdateRoom(Room room);
-        public Task DeleteRoom(int id);
-
+        
     }
 }

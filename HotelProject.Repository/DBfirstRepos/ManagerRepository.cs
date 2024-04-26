@@ -3,11 +3,13 @@ using HotelProject.Models;
 using HotelProject.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace HotelProject.Repository.MVCRepos
 {
     public class ManagerRepository : IManagerRepository
     {
+        /*
         public async Task<List<Manager>> GetManagers()
         {
             List<Manager> result = new List<Manager>();
@@ -40,7 +42,6 @@ namespace HotelProject.Repository.MVCRepos
             }
             return result;
         }
-
         public async Task AddManager(Manager manager)
         {
             const string sqlExpression = "AddManager";
@@ -137,6 +138,36 @@ namespace HotelProject.Repository.MVCRepos
                 }
             }
             return result;
+        }
+        */
+        public Task AddAsync(Manager entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Manager>> GetAllAsync(Expression<Func<Manager, bool>> filter, string? includePropeties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Manager>> GetAllAsync(string? includePropeties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Manager?> GetAsync(Expression<Func<Manager, bool>> filter, string? includePropeties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Manager entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Manager> Update(Manager entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

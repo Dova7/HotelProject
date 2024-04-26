@@ -3,11 +3,13 @@ using HotelProject.Models;
 using HotelProject.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace HotelProject.Repository.MVCRepos
 {
     public class RoomRepository : IRoomRepository
     {
+        /*
         public async Task<List<Room>> GetRooms()
         {
             List<Room> result = new List<Room>();
@@ -106,6 +108,36 @@ namespace HotelProject.Repository.MVCRepos
                     }
                 }
             }
+        }
+        */
+        public Task AddAsync(Room entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Room>> GetAllAsync(Expression<Func<Room, bool>> filter, string? includePropeties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Room>> GetAllAsync(string? includePropeties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Room?> GetAsync(Expression<Func<Room, bool>> filter, string? includePropeties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Room entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Room> Update(Room entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

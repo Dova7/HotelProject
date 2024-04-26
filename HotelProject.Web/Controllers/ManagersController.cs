@@ -1,4 +1,5 @@
-﻿using HotelProject.Models;
+﻿using HotelProject.Data;
+using HotelProject.Models;
 using HotelProject.Repository.Interfaces;
 using HotelProject.Repository.MVCRepos;
 using Microsoft.AspNetCore.Mvc;
@@ -11,26 +12,30 @@ namespace HotelProject.Web.Controllers
     {
 		private readonly IManagerRepository _managerRepository;
 		private readonly IHotelRepository _hotelRepository;
-        public ManagersController(IManagerRepository managerRepository, IHotelRepository hotelRepository)
+		private readonly ApplicationDBContext _context;
+        public ManagersController(IManagerRepository managerRepository, IHotelRepository hotelRepository, ApplicationDBContext context)
 		{
 			_managerRepository = managerRepository;
             _hotelRepository = hotelRepository;
+			_context = context;
         }
 		public async Task<IActionResult> Index()
         {
-			var result = await _managerRepository.GetManagers();
+			var result = await _managerRepository.GetAllAsync(includePropeties: "Hotel");
             return View(result);
         }
 		public async Task<IActionResult> Create()
 		{
-            var hotels = await _hotelRepository.GetHotelsWithoutManager();
+            var hotels = await _hotelRepository.GetAllAsync(x=>x.Manager == null);
             ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");
             return View();
 		}
 		[HttpPost]
 		public async Task<IActionResult> Create(Manager model)
 		{
-			await _managerRepository.AddManager(model);
+			await _managerRepository.AddAsync(model);
+			await _context.SaveChangesAsync();
+
 			return RedirectToAction("Index");
 		}
 		public IActionResult DeleteConf(int id)
@@ -40,26 +45,38 @@ namespace HotelProject.Web.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Delete(int id)
 		{
-			await _managerRepository.DeleteManager(id);
-			return RedirectToAction("Index");
+			var result = await _managerRepository.GetAsync(x=>x.Id == id, includePropeties: "Hotel");
+			if (result != null)
+			{
+				_managerRepository.Remove(result);
+			}
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
 		}
 		public async Task<IActionResult> Update(int id)
 		{
-			var hotels = await _hotelRepository.GetHotelsWithoutManager();
-			var manager = await _managerRepository.GetManagerById(id);
-			if (manager.HotelId.HasValue)
+			var hotels = await _hotelRepository.GetAllAsync(x => x.Manager == null);
+			var manager = await _managerRepository.GetAsync(x => x.Id == id, includePropeties: "Hotel");
+			if (manager != null)
 			{
-				var currentHotel = await _hotelRepository.GetHotelById(manager.HotelId.Value);
-                hotels.Add(currentHotel);
-            }
+				if (manager.HotelId.HasValue)
+				{
+					var currentHotel = await _hotelRepository.GetAsync(x => x.Id == manager.HotelId.Value);
+					if(currentHotel != null)
+					{ 
+					hotels.Add(currentHotel);
+                    }
+                }
+			}
             ViewBag.HotelId = new SelectList(hotels, "Id", "HotelName");			
             return View(manager);
 		}
 		[HttpPost]
 		public async Task<IActionResult> Update(Manager model)
 		{
-			await _managerRepository.UpdateManager(model);
-			return RedirectToAction("Index");
+			await _managerRepository.Update(model);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
 		}
 	}
 }
