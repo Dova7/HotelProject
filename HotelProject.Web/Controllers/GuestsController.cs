@@ -25,7 +25,7 @@ namespace HotelProject.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var raw = await _guestReservationRepository.GetAllAsync();
+            var raw = await _guestReservationRepository.GetAllAsync(includePropeties: "Guest,Reservation");
             List<GuestReservationDTO> result = _mapper.Map<List<GuestReservationDTO>>(raw);
             return View(result);
         }
@@ -45,6 +45,8 @@ namespace HotelProject.Web.Controllers
 
             await _guestRepository.AddAsync(newGuest);
             await _reservationRepository.AddAsync(newReservation);
+
+            await _context.SaveChangesAsync();
 
             var newGuestFromDB = await _guestRepository.GetAsync(x => x.PersonalNumber == model.PersonalNumber);
             var newReservationFromDB = await _reservationRepository.GetAsync(x => x.CheckInDate == model.CheckInDate && x.CheckOutDate == model.CheckOutDate);
