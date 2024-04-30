@@ -12,6 +12,6 @@ namespace HotelProject.Models
         public string? City { get; set; }
         public string? PhysicalAddress { get; set; }
         public Manager? Manager { get; set; }
-        public ICollection<Room>? Rooms { get; set; }
+        public ICollection<Room>? Room { get; set; }
     }
 }
