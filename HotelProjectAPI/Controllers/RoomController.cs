@@ -1,5 +1,7 @@
-﻿using HotelProject.Data;
+﻿using AutoMapper;
+using HotelProject.Data;
 using HotelProject.Models;
+using HotelProject.Models.DTOS;
 using HotelProject.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,15 +14,18 @@ namespace HotelProjectAPI.Controllers
     {
         private readonly IRoomRepository _roomRepository;
         private readonly ApplicationDBContext _context;
-        public RoomController(IRoomRepository roomRepository, ApplicationDBContext context)
+        private readonly IMapper _mapper;
+        public RoomController(IRoomRepository roomRepository, ApplicationDBContext context, IMapper mapper)
         {
             _roomRepository = roomRepository;
             _context = context;
+            _mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Room>>> GetAllRooms()
+        public async Task<ActionResult<List<RoomDTO>>> GetAllRooms()
         {
-            var rooms = await _roomRepository.GetAllAsync();
+            var raw = await _roomRepository.GetAllAsync(includePropeties: "Hotel");
+            List<RoomDTO> rooms = _mapper.Map<List<RoomDTO>>(raw);
 
             if (rooms == null)
             {
@@ -31,11 +36,12 @@ namespace HotelProjectAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Room>> AddNewRoom([FromBody] Room model)
+        public async Task<ActionResult<RoomDTO>> AddNewRoom([FromBody] RoomDTO model)
         {
-            if (model != null)
+            Room newRoom = _mapper.Map<Room>(model);
+            if (newRoom != null)
             {
-                await _roomRepository.AddAsync(model);
+                await _roomRepository.AddAsync(newRoom);
             }
             else
             {
@@ -70,7 +76,7 @@ namespace HotelProjectAPI.Controllers
             return NoContent();
         }
         [HttpPost("{id:int}")]
-        public async Task<ActionResult<Room>> UpdateRoom([FromRoute] int id, [FromBody] Room model)
+        public async Task<ActionResult<RoomDTO>> UpdateRoom([FromRoute] int id, [FromBody] RoomDTO model)
         {
             if (id <= 0)
             {
