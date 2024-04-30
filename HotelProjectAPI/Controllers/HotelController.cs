@@ -22,7 +22,7 @@ namespace HotelProjectAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Hotel>>> GetAllHotels()
         {
-            var hotels = await _hotelRepository.GetAllAsync();
+            var hotels = await _hotelRepository.GetAllAsync(includePropeties: "Manager");
 
             if (hotels == null)
             {
