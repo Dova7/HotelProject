@@ -18,7 +18,16 @@ namespace HotelProject.Web
                 .ForMember(dest => dest.ReservationId, options => options.MapFrom(src => src.ReservationId))
                 .ForMember(dest => dest.CheckInDate, options => options.MapFrom(src => src.Reservation.CheckInDate))
                 .ForMember(dest => dest.CheckOutDate, options => options.MapFrom(src => src.Reservation.CheckOutDate))
-                .ReverseMap();            
+                .ReverseMap();
+
+            CreateMap<Hotel, HotelDTO>()
+                .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))
+                .ForMember(dest => dest.HotelName, options => options.MapFrom(src => src.HotelName))
+                .ForMember(dest => dest.Rating, options => options.MapFrom(src => src.Rating))
+                .ForMember(dest => dest.Country, options => options.MapFrom(src => src.Country))
+                .ForMember(dest => dest.City, options => options.MapFrom(src => src.City))
+                .ForMember(dest => dest.PhysicalAddress, options => options.MapFrom(src => src.PhysicalAddress))
+                .ReverseMap();
         }
     }
 }

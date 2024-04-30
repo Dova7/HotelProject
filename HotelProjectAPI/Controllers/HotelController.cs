@@ -1,5 +1,7 @@
-﻿using HotelProject.Data;
+﻿using AutoMapper;
+using HotelProject.Data;
 using HotelProject.Models;
+using HotelProject.Models.DTOS;
 using HotelProject.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +14,20 @@ namespace HotelProjectAPI.Controllers
     {
         private readonly IHotelRepository _hotelRepository;
         private readonly ApplicationDBContext _context;
+        private readonly IMapper _mapper;
 
-        public HotelController(IHotelRepository hotelRepository, ApplicationDBContext context)
+        public HotelController(IHotelRepository hotelRepository, ApplicationDBContext context, IMapper mapper)
         {
             _hotelRepository = hotelRepository;
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Hotel>>> GetAllHotels()
+        public async Task<ActionResult<List<HotelDTO>>> GetAllHotels()
         {
-            var hotels = await _hotelRepository.GetAllAsync(includePropeties: "Manager");
+            var raw = await _hotelRepository.GetAllAsync(includePropeties: "Manager");
+            List<HotelDTO> hotels = _mapper.Map<List<HotelDTO>>(raw);
 
             if (hotels == null)
             {
@@ -33,11 +38,12 @@ namespace HotelProjectAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Hotel>> AddNewHotel([FromBody] Hotel model)
+        public async Task<ActionResult<HotelDTO>> AddNewHotel([FromBody] HotelDTO model)
         {
-            if (model != null)
+            Hotel newHotel = _mapper.Map<Hotel>(model);
+            if (newHotel != null)
             {
-                await _hotelRepository.AddAsync(model);
+                await _hotelRepository.AddAsync(newHotel);
             }
             else
             {
@@ -72,13 +78,15 @@ namespace HotelProjectAPI.Controllers
             return NoContent();
         }
         [HttpPost("{id:int}")]
-        public async Task<ActionResult<Hotel>> UpdateHotel([FromRoute] int id, [FromBody] Hotel model)
+        public async Task<ActionResult<HotelDTO>> UpdateHotel([FromRoute] int id, [FromBody] HotelDTO model)
         {
+
             if (id <= 0)
             {
                 return BadRequest("Invalid id parameter");
             }
             var hotel = await _hotelRepository.GetAsync(x => x.Id == id);
+
             if (hotel != null)
             {
                 hotel.HotelName = model.HotelName;
