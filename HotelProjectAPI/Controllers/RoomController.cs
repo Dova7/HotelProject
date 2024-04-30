@@ -3,7 +3,6 @@ using HotelProject.Data;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
 using HotelProject.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProjectAPI.Controllers
