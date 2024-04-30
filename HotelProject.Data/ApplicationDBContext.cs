@@ -248,7 +248,7 @@ namespace HotelProject.Data
 
             modelBuilder.Entity<Hotel>().HasOne(x => x.Manager).WithOne(x => x.Hotel).HasForeignKey<Manager>(x => x.HotelId);
 
-            modelBuilder.Entity<Room>().HasOne(x => x.Hotel).WithMany(x=> x.Rooms).HasForeignKey(x => x.HotelId);
+            modelBuilder.Entity<Room>().HasOne(x => x.Hotel).WithMany(x=> x.Room).HasForeignKey(x => x.HotelId);
         }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
