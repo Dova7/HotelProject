@@ -1,8 +1,8 @@
-﻿using HotelProject.Data;
+﻿using AutoMapper;
+using HotelProject.Data;
 using HotelProject.Models;
+using HotelProject.Models.DTOS;
 using HotelProject.Repository.Interfaces;
-using HotelProject.Repository.MVCRepos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProjectAPI.Controllers
@@ -13,16 +13,20 @@ namespace HotelProjectAPI.Controllers
     {
         private readonly IManagerRepository _mangerRepository;
         private readonly ApplicationDBContext _context;
-        public ManagerController(IManagerRepository managerRepository, ApplicationDBContext context)
+        private readonly IMapper _mapper;
+
+        public ManagerController(IManagerRepository managerRepository, ApplicationDBContext context, IMapper mapper)
         {
             _mangerRepository = managerRepository;
             _context = context;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<ActionResult<List<Manager>>> GetAllManagers()
         {
-            var managers = await _mangerRepository.GetAllAsync();
+            var raw = await _mangerRepository.GetAllAsync(includePropeties: "Hotel");
 
+            List<ManagerDTO> managers = _mapper.Map<List<ManagerDTO>>(raw);
             if (managers == null)
             {
                 return NotFound("Managers not found");
@@ -32,11 +36,12 @@ namespace HotelProjectAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Manager>> AddNewManager([FromBody] Manager model)
+        public async Task<ActionResult<ManagerDTO>> AddNewManager([FromBody] ManagerDTO model)
         {
-            if (model != null)
+            Manager newManager = _mapper.Map<Manager>(model);
+            if (newManager != null)
             {
-                await _mangerRepository.AddAsync(model);
+                await _mangerRepository.AddAsync(newManager);
             }
             else
             {
@@ -45,8 +50,6 @@ namespace HotelProjectAPI.Controllers
             await _context.SaveChangesAsync();
             return Ok(model);
         }
-
-
 
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Manager>> DeleteManager([FromRoute] int id)
@@ -71,7 +74,7 @@ namespace HotelProjectAPI.Controllers
             return NoContent();
         }
         [HttpPost("{id:int}")]
-        public async Task<ActionResult<Manager>> UpdateManager([FromRoute] int id, [FromBody] Manager model)
+        public async Task<ActionResult<ManagerDTO>> UpdateManager([FromRoute] int id, [FromBody] ManagerDTO model)
         {
             if (id <= 0)
             {

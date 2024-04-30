@@ -28,6 +28,13 @@ namespace HotelProject.Web
                 .ForMember(dest => dest.City, options => options.MapFrom(src => src.City))
                 .ForMember(dest => dest.PhysicalAddress, options => options.MapFrom(src => src.PhysicalAddress))
                 .ReverseMap();
+
+            CreateMap<Manager, ManagerDTO>()
+                .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))    
+                .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.SecondName, options => options.MapFrom(src => src.SecondName))
+                .ForMember(dest => dest.SecondName, options => options.MapFrom(src => src.SecondName))
+                .ReverseMap();
         }
     }
 }

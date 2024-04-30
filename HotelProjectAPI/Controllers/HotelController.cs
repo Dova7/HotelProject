@@ -26,7 +26,7 @@ namespace HotelProjectAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<HotelDTO>>> GetAllHotels()
         {
-            var raw = await _hotelRepository.GetAllAsync(includePropeties: "Manager");
+            var raw = await _hotelRepository.GetAllAsync(includePropeties: "Manager,Room");
             List<HotelDTO> hotels = _mapper.Map<List<HotelDTO>>(raw);
 
             if (hotels == null)
