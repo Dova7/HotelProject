@@ -70,7 +70,7 @@ namespace HotelProjectAPI.Controllers
             return Ok(model);
         }
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<GuestReservation>> DeleteRoom([FromRoute] int id)
+        public async Task<ActionResult<GuestReservation>> DeleteGuestReservation([FromRoute] int id)
         {
             if (id <= 0)
             {
@@ -100,13 +100,13 @@ namespace HotelProjectAPI.Controllers
             return NoContent();
         }
         [HttpPost("{id:int}")]
-        public async Task<ActionResult<GuestReservationUpdateDTO>> UpdateRoom([FromRoute] int id, [FromBody] GuestReservationUpdateDTO model)
+        public async Task<ActionResult<GuestReservationUpdateDTO>> UpdateGuestReservation([FromRoute] int id, [FromBody] GuestReservationUpdateDTO model)
         {
             if (id <= 0)
             {
                 return BadRequest("Invalid id parameter");
             }
-            var raw = await _guestReservationRepository.GetAsync(x => x.Id == id);
+            var raw = await _guestReservationRepository.GetAsync(x => x.Id == id, includePropeties: "Guest,Reservation");
             var result =  _mapper.Map<GuestReservationUpdateDTO>(raw);
             if (result != null)
             {
@@ -137,6 +137,7 @@ namespace HotelProjectAPI.Controllers
             {
                 model.GuestId = updatedGuestFromDB.Id;
                 model.ReservationId = updatedReservationFromDB.Id;
+                model.Id = result.Id;
             }
             await _context.SaveChangesAsync();
             await _guestReservationRepository.Update(_mapper.Map<GuestReservation>(model));

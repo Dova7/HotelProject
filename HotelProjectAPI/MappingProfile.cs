@@ -60,7 +60,7 @@ namespace HotelProject.Web
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))
                 .ReverseMap();
 
-            CreateMap<GuestReservationUpdateDTO, Guest>()
+            /*CreateMap<GuestReservationUpdateDTO, Guest>()
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.GuestId))
                 .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, options => options.MapFrom(src => src.LastName))
@@ -72,7 +72,7 @@ namespace HotelProject.Web
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.ReservationId))
                 .ForMember(dest => dest.CheckInDate, options => options.MapFrom(src => src.CheckInDate))
                 .ForMember(dest => dest.CheckOutDate, options => options.MapFrom(src => src.CheckOutDate))
-                .ReverseMap();
+                .ReverseMap();*/
         }
     }
 }
