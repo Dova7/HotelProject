@@ -1,9 +1,6 @@
-using HotelProject.Data;
 using HotelProject.Repository;
 using HotelProject.Repository.EFRepos;
 using HotelProject.Repository.Interfaces;
-using HotelProject.Web;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelProjectAPI
 {
@@ -14,9 +11,10 @@ namespace HotelProjectAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.AddAutoMapper();
+            builder.AddDBContext();
+            builder.AddControllers();
 
-            builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerLocalConnection")));
             builder.Services.AddScoped<IHotelRepository, HotelRepositoryEF>();
             builder.Services.AddScoped<IManagerRepository, ManagerRepositoryEF>();
             builder.Services.AddScoped<IRoomRepository, RoomRepositoryEF>();
@@ -24,9 +22,6 @@ namespace HotelProjectAPI
             builder.Services.AddScoped<IGuestRepository, GuestRepositoryEF>();
             builder.Services.AddScoped<IReservationRepository, ReservationRepositoryEF>();
             builder.Services.AddScoped<IGuestReservationRepository, GuestReservationRepositoryEF>();
-
-
-            builder.Services.AddControllers();
 
             var app = builder.Build();
 
