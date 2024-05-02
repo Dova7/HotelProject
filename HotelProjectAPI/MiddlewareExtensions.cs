@@ -1,7 +1,6 @@
 ﻿using HotelProject.Data;
 using HotelProject.Web;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HotelProjectAPI
 {

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using HotelProject.Data;
-using HotelProject.Data.Migrations;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
 using HotelProject.Repository.Interfaces;
@@ -107,7 +106,7 @@ namespace HotelProjectAPI.Controllers
                 return BadRequest("Invalid id parameter");
             }
             var raw = await _guestReservationRepository.GetAsync(x => x.Id == id, includePropeties: "Guest,Reservation");
-            var result =  _mapper.Map<GuestReservationUpdateDTO>(raw);
+            var result = _mapper.Map<GuestReservationUpdateDTO>(raw);
             if (result != null)
             {
                 Guest? guest = await _guestRepository.GetAsync(x => x.Id == result.GuestId);

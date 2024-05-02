@@ -30,7 +30,7 @@ namespace HotelProject.Web
                 .ReverseMap();
 
             CreateMap<Manager, ManagerDTO>()
-                .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))    
+                .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.SecondName, options => options.MapFrom(src => src.SecondName))
                 .ForMember(dest => dest.SecondName, options => options.MapFrom(src => src.SecondName))
