@@ -1,7 +1,3 @@
-using HotelProject.Repository;
-using HotelProject.Repository.EFRepos;
-using HotelProject.Repository.Interfaces;
-
 namespace HotelProjectAPI
 {
     public class Program
@@ -14,14 +10,8 @@ namespace HotelProjectAPI
             builder.AddAutoMapper();
             builder.AddDBContext();
             builder.AddControllers();
-
-            builder.Services.AddScoped<IHotelRepository, HotelRepositoryEF>();
-            builder.Services.AddScoped<IManagerRepository, ManagerRepositoryEF>();
-            builder.Services.AddScoped<IRoomRepository, RoomRepositoryEF>();
-
-            builder.Services.AddScoped<IGuestRepository, GuestRepositoryEF>();
-            builder.Services.AddScoped<IReservationRepository, ReservationRepositoryEF>();
-            builder.Services.AddScoped<IGuestReservationRepository, GuestReservationRepositoryEF>();
+            builder.AddScopedRepos();
+            builder.AddScopedServices();
 
             var app = builder.Build();
 

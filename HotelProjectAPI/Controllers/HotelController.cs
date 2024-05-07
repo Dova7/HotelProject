@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelProject.Contracts.ServiceInterfaces;
 using HotelProject.Data;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
@@ -12,44 +13,25 @@ namespace HotelProjectAPI.Controllers
     [ApiController]
     public class HotelController : ControllerBase
     {
-        private readonly IHotelRepository _hotelRepository;
-        private readonly ApplicationDBContext _context;
-        private readonly IMapper _mapper;
+        private readonly IHotelService _hotelService;
 
-        public HotelController(IHotelRepository hotelRepository, ApplicationDBContext context, IMapper mapper)
+        public HotelController(IHotelService hotelService)
         {
-            _hotelRepository = hotelRepository;
-            _context = context;
-            _mapper = mapper;
+            _hotelService = hotelService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<HotelDTO>>> GetAllHotels()
         {
-            var raw = await _hotelRepository.GetAllAsync(includePropeties: "Manager,Room");
-            List<HotelDTO> hotels = _mapper.Map<List<HotelDTO>>(raw);
+            var result = await _hotelService.GetAllHotels();
 
-            if (hotels == null)
-            {
-                return NotFound("Hotels not found");
-            }
-
-            return Ok(hotels);
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<HotelDTO>> AddNewHotel([FromBody] HotelDTO model)
         {
-            Hotel newHotel = _mapper.Map<Hotel>(model);
-            if (newHotel != null)
-            {
-                await _hotelRepository.AddAsync(newHotel);
-            }
-            else
-            {
-                return BadRequest("Invalid parameter");
-            }
-            await _context.SaveChangesAsync();
+            await _hotelService.AddNewHotel(model);
             return Ok(model);
         }
 
@@ -62,19 +44,8 @@ namespace HotelProjectAPI.Controllers
             {
                 return BadRequest("Invalid id parameter");
             }
-
-            var hotel = await _hotelRepository.GetAsync(x => x.Id == id);
-
-            if (hotel != null)
-            {
-                _hotelRepository.Remove(hotel);
-            }
-            else
-            {
-                return NotFound("Hotel not found");
-
-            }
-            await _context.SaveChangesAsync();
+            await _hotelService.DeleteHotel(id);
+            
             return NoContent();
         }
         [HttpPost("{id:int}")]
@@ -85,23 +56,9 @@ namespace HotelProjectAPI.Controllers
             {
                 return BadRequest("Invalid id parameter");
             }
-            var hotel = await _hotelRepository.GetAsync(x => x.Id == id);
-
-            if (hotel != null)
-            {
-                hotel.HotelName = model.HotelName;
-                hotel.Rating = model.Rating;
-                hotel.Country = model.Country;
-                hotel.City = model.City;
-                hotel.PhysicalAddress = model.PhysicalAddress;
-                await _hotelRepository.Update(hotel);
-            }
-            else
-            {
-                return NotFound("Hotel not found");
-
-            }
-            await _context.SaveChangesAsync();
+            model.Id = id;
+            await _hotelService.UpdateHotel(model);
+            
             return Ok(model);
         }
     }
