@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HotelProject.Data\HotelProject.Data.csproj" />
     <ProjectReference Include="..\HotelProject.Repository\HotelProject.Repository.csproj" />
     <ProjectReference Include="..\HotelProject.Services\HotelProject.Services.csproj" />

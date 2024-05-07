@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using HotelProject.Contracts.ServiceInterfaces;
-using HotelProject.Data;
+﻿using HotelProject.Contracts.ServiceInterfaces;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
-using HotelProject.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -45,7 +42,7 @@ namespace HotelProjectAPI.Controllers
                 return BadRequest("Invalid id parameter");
             }
             await _hotelService.DeleteHotel(id);
-            
+
             return NoContent();
         }
         [HttpPost("{id:int}")]
@@ -58,7 +55,7 @@ namespace HotelProjectAPI.Controllers
             }
             model.Id = id;
             await _hotelService.UpdateHotel(model);
-            
+
             return Ok(model);
         }
     }
