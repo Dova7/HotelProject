@@ -8,6 +8,5 @@ namespace HotelProject.Contracts.ServiceInterfaces
         Task AddNewHotel(HotelDTO model);
         Task DeleteHotel(int id);
         Task UpdateHotel(HotelDTO model);
-
     }
 }

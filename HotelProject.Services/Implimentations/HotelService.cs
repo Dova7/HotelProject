@@ -62,7 +62,7 @@ namespace HotelProject.Services.Implimentations
 
         public async Task UpdateHotel(HotelDTO model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new ArgumentNullException("Invalid argument passed");
             }
