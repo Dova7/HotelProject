@@ -36,6 +36,7 @@ namespace HotelProjectAPI
         public static void AddScopedServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IHotelService, HotelService>();
+            builder.Services.AddScoped<IManagerService, ManagerService>();
         }
     }
 }

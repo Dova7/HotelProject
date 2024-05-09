@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using HotelProject.Data;
+﻿using HotelProject.Contracts.ServiceInterfaces;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
-using HotelProject.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProjectAPI.Controllers
@@ -11,43 +9,23 @@ namespace HotelProjectAPI.Controllers
     [ApiController]
     public class ManagerController : ControllerBase
     {
-        private readonly IManagerRepository _mangerRepository;
-        private readonly ApplicationDBContext _context;
-        private readonly IMapper _mapper;
+        private readonly IManagerService _managerService;
 
-        public ManagerController(IManagerRepository managerRepository, ApplicationDBContext context, IMapper mapper)
+        public ManagerController(IManagerService managerService)
         {
-            _mangerRepository = managerRepository;
-            _context = context;
-            _mapper = mapper;
+            _managerService = managerService;
         }
         [HttpGet]
         public async Task<ActionResult<List<Manager>>> GetAllManagers()
         {
-            var raw = await _mangerRepository.GetAllAsync(includePropeties: "Hotel");
-
-            List<ManagerDTO> managers = _mapper.Map<List<ManagerDTO>>(raw);
-            if (managers == null)
-            {
-                return NotFound("Managers not found");
-            }
-
-            return Ok(managers);
+            var result = await _managerService.GetAllManagers();
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<ManagerDTO>> AddNewManager([FromBody] ManagerDTO model)
         {
-            Manager newManager = _mapper.Map<Manager>(model);
-            if (newManager != null)
-            {
-                await _mangerRepository.AddAsync(newManager);
-            }
-            else
-            {
-                return BadRequest("Invalid parameter");
-            }
-            await _context.SaveChangesAsync();
+            await _managerService.AddNewManager(model);
             return Ok(model);
         }
 
@@ -58,19 +36,8 @@ namespace HotelProjectAPI.Controllers
             {
                 return BadRequest("Invalid id parameter");
             }
+            await _managerService.DeleteManager(id);
 
-            var manager = await _mangerRepository.GetAsync(x => x.Id == id);
-
-            if (manager != null)
-            {
-                _mangerRepository.Remove(manager);
-            }
-            else
-            {
-                return NotFound("Manager not found");
-
-            }
-            await _context.SaveChangesAsync();
             return NoContent();
         }
         [HttpPost("{id:int}")]
@@ -80,21 +47,9 @@ namespace HotelProjectAPI.Controllers
             {
                 return BadRequest("Invalid id parameter");
             }
-            var manager = await _mangerRepository.GetAsync(x => x.Id == id);
-            if (manager != null)
-            {
-                manager.FirstName = model.FirstName;
-                manager.SecondName = model.SecondName;
-                manager.HotelId = model.HotelId;
+            model.Id = id;
+            await _managerService.UpdateManager(model);
 
-                await _mangerRepository.Update(manager);
-            }
-            else
-            {
-                return NotFound("Manager not found");
-
-            }
-            await _context.SaveChangesAsync();
             return Ok(model);
         }
     }

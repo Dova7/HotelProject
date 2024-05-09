@@ -165,6 +165,11 @@ namespace HotelProject.Repository.MVCRepos
             throw new NotImplementedException();
         }
 
+        public Task Save()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Manager> Update(Manager entity)
         {
             throw new NotImplementedException();
