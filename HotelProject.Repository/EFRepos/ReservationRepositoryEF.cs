@@ -29,5 +29,6 @@ namespace HotelProject.Repository
             _context.Reservations.Update(entityFromDb);
             return entityFromDb;
         }
+        public async Task Save() => await _context.SaveChangesAsync();
     }
 }

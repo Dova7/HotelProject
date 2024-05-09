@@ -38,6 +38,7 @@ namespace HotelProjectAPI
             builder.Services.AddScoped<IHotelService, HotelService>();
             builder.Services.AddScoped<IManagerService, ManagerService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
+            builder.Services.AddScoped<IGuestReservationService, GuestReservationService>();
         }
     }
 }

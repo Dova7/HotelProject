@@ -45,8 +45,27 @@ namespace HotelProject.Web
                .ReverseMap();
 
             CreateMap<GuestReservationCreateDTO, GuestReservation>().ReverseMap();
-            CreateMap<GuestReservationCreateDTO, Guest>().ReverseMap();
-            CreateMap<GuestReservationCreateDTO, Reservation>().ReverseMap();
+            CreateMap<Guest, GuestReservationCreateDTO>()
+                .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, options => options.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.PersonalNumber, options => options.MapFrom(src => src.PersonalNumber))
+                .ForMember(dest => dest.PhoneNumber, options => options.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.GuestId, options => options.MapFrom(src => src.Id))
+                .ForMember(dest => dest.CheckInDate, options => options.Ignore())
+                .ForMember(dest => dest.CheckOutDate, options => options.Ignore())
+                .ForMember(dest => dest.ReservationId, options => options.Ignore())
+                .ReverseMap();
+
+            CreateMap<GuestReservationCreateDTO, Reservation>().ReverseMap()
+                .ForMember(dest => dest.CheckInDate, options => options.MapFrom(src => src.CheckInDate))
+                .ForMember(dest => dest.CheckOutDate, options => options.MapFrom(src => src.CheckOutDate))
+                .ForMember(dest => dest.ReservationId, options => options.MapFrom(src => src.Id))
+                .ForMember(dest => dest.FirstName, options => options.Ignore())
+                .ForMember(dest => dest.LastName, options => options.Ignore())
+                .ForMember(dest => dest.PhoneNumber, options => options.Ignore())
+                .ForMember(dest => dest.PersonalNumber, options => options.Ignore())
+                .ForMember(dest => dest.GuestId, options => options.Ignore())
+                .ReverseMap();
 
             CreateMap<GuestReservation, GuestReservationUpdateDTO>()
                 .ForMember(dest => dest.GuestId, options => options.MapFrom(src => src.GuestId))
@@ -60,7 +79,7 @@ namespace HotelProject.Web
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))
                 .ReverseMap();
 
-            /*CreateMap<GuestReservationUpdateDTO, Guest>()
+            CreateMap<GuestReservationUpdateDTO, Guest>()
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.GuestId))
                 .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, options => options.MapFrom(src => src.LastName))
@@ -72,7 +91,7 @@ namespace HotelProject.Web
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.ReservationId))
                 .ForMember(dest => dest.CheckInDate, options => options.MapFrom(src => src.CheckInDate))
                 .ForMember(dest => dest.CheckOutDate, options => options.MapFrom(src => src.CheckOutDate))
-                .ReverseMap();*/
+                .ReverseMap();
         }
     }
 }

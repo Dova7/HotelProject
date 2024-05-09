@@ -11,15 +11,15 @@ namespace HotelProject.Repository
         public GuestReservationRepositoryEF(ApplicationDBContext context) : base(context)
         {
             _context = context;
-        }
+        }        
         public async Task<GuestReservation> Update(GuestReservation entity)
         {
             var entityFromDb = await _context.GuestReservations.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
             if (entityFromDb != null)
             {
-                entityFromDb.ReservationId = entity.Id;
-                entityFromDb.GuestId = entity.Id;
+                entityFromDb.ReservationId = entity.ReservationId;
+                entityFromDb.GuestId = entity.GuestId;
             }
             else
             {
@@ -29,5 +29,6 @@ namespace HotelProject.Repository
             _context.GuestReservations.Update(entityFromDb);
             return entityFromDb;
         }
+        public async Task Save() => await _context.SaveChangesAsync();
     }
 }
