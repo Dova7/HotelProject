@@ -31,5 +31,6 @@ namespace HotelProject.Repository.EFRepos
             _context.Rooms.Update(entityFromDb);
             return entityFromDb;
         }
+        public async Task Save() => await _context.SaveChangesAsync();
     }    
 }

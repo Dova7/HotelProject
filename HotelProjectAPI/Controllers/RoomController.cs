@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using HotelProject.Data;
+﻿using HotelProject.Contracts.ServiceInterfaces;
 using HotelProject.Models;
 using HotelProject.Models.DTOS;
-using HotelProject.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProjectAPI.Controllers
@@ -11,42 +9,23 @@ namespace HotelProjectAPI.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly IRoomRepository _roomRepository;
-        private readonly ApplicationDBContext _context;
-        private readonly IMapper _mapper;
-        public RoomController(IRoomRepository roomRepository, ApplicationDBContext context, IMapper mapper)
+        private readonly IRoomService _roomService;
+        public RoomController(IRoomService roomService)
         {
-            _roomRepository = roomRepository;
-            _context = context;
-            _mapper = mapper;
+            _roomService = roomService;
         }
         [HttpGet]
         public async Task<ActionResult<List<RoomDTO>>> GetAllRooms()
         {
-            var raw = await _roomRepository.GetAllAsync(includePropeties: "Hotel");
-            List<RoomDTO> rooms = _mapper.Map<List<RoomDTO>>(raw);
+            var result = await _roomService.GetAllRooms();
 
-            if (rooms == null)
-            {
-                return NotFound("Rooms not found");
-            }
-
-            return Ok(rooms);
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<RoomDTO>> AddNewRoom([FromBody] RoomDTO model)
         {
-            Room newRoom = _mapper.Map<Room>(model);
-            if (newRoom != null)
-            {
-                await _roomRepository.AddAsync(newRoom);
-            }
-            else
-            {
-                return BadRequest("Invalid parameter");
-            }
-            await _context.SaveChangesAsync();
+            await _roomService.AddNewRoom(model);
             return Ok(model);
         }
 
@@ -59,19 +38,7 @@ namespace HotelProjectAPI.Controllers
             {
                 return BadRequest("Invalid id parameter");
             }
-
-            var room = await _roomRepository.GetAsync(x => x.Id == id);
-
-            if (room != null)
-            {
-                _roomRepository.Remove(room);
-            }
-            else
-            {
-                return NotFound("Room not found");
-
-            }
-            await _context.SaveChangesAsync();
+            await _roomService.DeleteRoom(id);
             return NoContent();
         }
         [HttpPost("{id:int}")]
@@ -81,22 +48,8 @@ namespace HotelProjectAPI.Controllers
             {
                 return BadRequest("Invalid id parameter");
             }
-            var room = await _roomRepository.GetAsync(x => x.Id == id);
-            if (room != null)
-            {
-                room.RoomName = model.RoomName;
-                room.IsBooked = model.IsBooked;
-                room.HotelId = model.HotelId;
-                room.PriceGel = model.PriceGel;
-
-                await _roomRepository.Update(room);
-            }
-            else
-            {
-                return NotFound("Room not found");
-
-            }
-            await _context.SaveChangesAsync();
+            model.Id = id;
+            await _roomService.UpdateRoom(model);
             return Ok(model);
         }
     }
